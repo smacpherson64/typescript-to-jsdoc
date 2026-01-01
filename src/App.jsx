@@ -15,7 +15,7 @@ const otherDependencies = Object.keys({
 
 const initialCode = `
 /** Example description... */
-type Person = { 
+type Person = {
   id: string
   name: string
   /** The mailing address of the person. */
@@ -126,7 +126,7 @@ function OutputView({ code }) {
       setDebouncedCode(code);
     },
     1000,
-    [code]
+    [code],
   );
 
   useEffect(() => {
