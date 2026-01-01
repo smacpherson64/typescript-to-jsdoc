@@ -6,7 +6,7 @@ import globals from "globals";
 
 export default [
   // 1. Global Ignores (Replaces ignorePatterns)
-  { ignores: ["dist", ".eslintrc.cjs"] },
+  { ignores: ["dist", "eslint.config.mjs"] },
 
   // 2. Base Configuration
   {
@@ -26,7 +26,7 @@ export default [
     },
     settings: {
       react: {
-        version: "18.2",
+        version: "19.2",
       },
     },
     plugins: {
