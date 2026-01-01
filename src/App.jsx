@@ -115,7 +115,6 @@ function App() {
  */
 function OutputView({ code }) {
   const [loading, setLoading] = useState(false);
-  const [debouncedCode, setDebouncedCode] = useState(code);
   const [{ output, error }, setState] = useReducer((a, b) => ({ ...a, ...b }), {
     output: "",
     error: null,
@@ -123,16 +122,12 @@ function OutputView({ code }) {
 
   useDebounce(
     () => {
-      setDebouncedCode(code);
+      setLoading(true);
+      worker.postMessage(code);
     },
     1000,
     [code],
   );
-
-  useEffect(() => {
-    setLoading(true);
-    worker.postMessage(debouncedCode);
-  }, [debouncedCode]);
 
   useEffect(() => {
     worker.onmessage = function (event) {
@@ -159,7 +154,7 @@ function OutputView({ code }) {
     <div
       className={[
         "bg-white/5 p-4 w-full text-green-600 overflow-x-scroll transition-opacity duration-500 selection:bg-slate-700 selection:text-green-500",
-        (loading || code !== debouncedCode) && "opacity-30",
+        loading && "opacity-30",
       ]
         .filter(Boolean)
         .join(" ")}
